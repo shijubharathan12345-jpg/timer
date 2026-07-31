@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab Assistant Exam Countdown</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .card {
+    background: #111827;
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    max-width: 700px;
+    width: 100%;
+    border: 1px solid #334155;
+  }
+  h1 {
+    color: #f1f5f9;
+    font-size: 26px;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .subtitle {
+    color: #94a3b8;
+    font-size: 15px;
+    margin-bottom: 30px;
+  }
+  .timer {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .unit {
+    background: #1e293b;
+    border-radius: 16px;
+    padding: 24px 20px;
+    min-width: 120px;
+    flex: 1;
+  }
+  .unit.days {
+    background: linear-gradient(135deg, #f59e0b, #ea580c);
+    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4);
+  }
+  .value {
+    font-size: 56px;
+    font-weight: 800;
+    color: #f1f5f9;
+    line-height: 1;
+  }
+  .unit.days .value {
+    color: #fff;
+    font-size: 64px;
+  }
+  .label {
+    font-size: 14px;
+    color: #94a3b8;
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .unit.days .label {
+    color: #fff7ed;
+  }
+  .footer {
+    margin-top: 28px;
+    color: #64748b;
+    font-size: 13px;
+  }
+  .done {
+    color: #22c55e;
+    font-size: 22px;
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>🎯 DME Lab Assistant Exam</h1>
+    <div class="subtitle">Countdown to 3rd October 2026</div>
+    <div class="timer">
+      <div class="unit days">
+        <div class="value" id="days">00</div>
+        <div class="label">Days</div>
+      </div>
+      <div class="unit">
+        <div class="value" id="hours">00</div>
+        <div class="label">Hours</div>
+      </div>
+      <div class="unit">
+        <div class="value" id="mins">00</div>
+        <div class="label">Minutes</div>
+      </div>
+      <div class="unit">
+        <div class="value" id="secs">00</div>
+        <div class="label">Seconds</div>
+      </div>
+    </div>
+    <div class="footer" id="footer">Stay consistent. Every day counts.</div>
+  </div>
+
+<script>
+  const target = new Date("2026-10-03T00:00:00");
+
+  function pad(n) { return String(n).padStart(2, "0"); }
+
+  function tick() {
+    const now = new Date();
+    let diff = target - now;
+
+    if (diff <= 0) {
+      document.querySelector(".timer").style.display = "none";
+      document.getElementById("footer").innerHTML = '<span class="done">Exam day is here. All the best!</span>';
+      return;
+    }
+
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const secs = Math.floor((diff % 60000) / 1000);
+
+    document.getElementById("days").textContent = days;
+    document.getElementById("hours").textContent = pad(hours);
+    document.getElementById("mins").textContent = pad(mins);
+    document.getElementById("secs").textContent = pad(secs);
+  }
+
+  tick();
+  setInterval(tick, 1000);
+</script>
+</body>
+</html>
